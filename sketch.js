@@ -1,0 +1,96 @@
+const Engine = Matter.Engine;
+const World= Matter.World;
+const Bodies = Matter.Bodies;
+const Constraint = Matter.Constraint;
+
+var engine, world;
+var bin;
+//var backgroundImg,platform;
+var bird, slingShot;
+
+function preload() {
+    backgroundImg = loadImage("sprites/bg.png");
+}
+
+function setup(){
+    var canvas = createCanvas(1200,400);
+    engine = Engine.create();
+    world = engine.world;
+
+
+    ground = new Ground(600,height,1200,20);
+    //platform = new Ground(150, 305, 300, 170);
+
+    bin = new Bin(700,290,20,150);
+
+    bin2 = new Bin(850,290,20,150);
+
+    bin3 = new Bin(680,225,20,20);
+
+    bin4 = new Bin(870,225,20,20);
+
+    bin5 = new Bin(775,377,170,20);
+
+
+    //box2 = new Box(920,320,70,70);
+    //pig1 = new Pig(810, 350);
+    //log1 = new Log(810,260,300, PI/2);
+
+    //box3 = new Box(700,240,70,70);
+    //box4 = new Box(920,240,70,70);
+    //pig3 = new Pig(810, 220);
+
+    //log3 =  new Log(810,180,300, PI/2);
+
+    //box5 = new Box(810,160,70,70);
+    //log4 = new Log(760,120,150, PI/7);
+    //log5 = new Log(870,120,150, -PI/7);
+
+    bird = new Bird(100,100);
+
+    //log6 = new Log(230,180,80, PI/2);
+
+    slingShot = new SlingShot(bird.body,{x:200,y:100});
+}
+
+function draw(){
+    background(200);
+    Engine.update(engine);
+    strokeWeight(4);
+    bin.display();
+    bin2.display();
+    bin3.display();
+    bin4.display();
+    bin5.display();
+    //box2.display();
+    ground.display();
+    //pig1.display();
+    //log1.display();
+
+       /* box3.display();
+        box4.display();
+    //    pig3.display();
+      //  log3.display();
+
+        box5.display();
+        log4.display();
+        log5.display();*/
+
+    bird.display();
+    //platform.display();
+   // log6.display();
+   slingShot.display();    
+}
+
+
+function mouseDragged(){
+
+    Matter.Body.setPosition(bird.body,{x:mouseX,y:mouseY});
+}
+
+
+function mouseReleased(){
+
+    slingShot.fly();
+
+}
